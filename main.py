@@ -1,17 +1,31 @@
 class DictionnaireOrdonne : 
     
     def __init__ (self, individual = {}, **pret) : 
-        self.cle = []
-        self.value = []
+        self.cles = []
+        self.valeurs = []
         
         if individual != {} :
-            pass                  
+            for key in individual.keys () : 
+                self.cles.append (key)
+            
+            for val in individual.values () : 
+                self.valeurs.append (val)
+            
+        if pret != {} : 
+            for key in pret.keys () : 
+                self.cles.append (key)
+            
+            for val in pret.values () : 
+                self.valeurs.append (val)       
 
     def __repr__ (self) : 
-        pass
-    
-    def __str__ (self) : 
-        pass
+        if len (self.cles) == 0 : 
+            return '{}'
+        else : 
+            formatage = "{"
+            for index in range (len (self.cles)) : 
+                 formatage += f"'{self.cles[index]}' : {self.valeurs[index]}, "
+            return formatage[:-2] + '}'
     
     def keys (self) : 
         pass
@@ -54,3 +68,12 @@ class DictionnaireOrdonne :
     
     def __iter__ (self, ) :
         pass 
+    
+
+if "__main__" == __name__ : 
+    dic = DictionnaireOrdonne ({"aziz" : 20, "ouss" : 19, "ahmed" : 17})
+    print (dic)
+    di = DictionnaireOrdonne (azizzz = 20, ouss = 19, ahmed = 18)
+    print (di)
+    d = DictionnaireOrdonne()
+    print (d)

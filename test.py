@@ -11,3 +11,7 @@ print (d.items())
 
 for i in d.keys () : 
     print (i)
+
+print (len ([]))
+
+print (d)
