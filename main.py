@@ -40,26 +40,34 @@ class DictionnaireOrdonne :
     def __len__ (self) : 
         return len (self.cles)
     
+    def __getitem__ (self, cle) :
+        pos = self.cles.index (cle)
+        return self.valeurs[pos]
+    
+    def __setitem__ (self, cle, new) :
+        if cle in self : 
+            pos = self.cles.index (cle)
+            self.valeurs[pos] = new
+        else : 
+            self.cles.append (cle)
+            self.valeurs.append (new)
+    
+    def __delitem__ (self, cle) : 
+        pos = self.cles.index (cle)
+        del (self.cles [pos])
+        del (self.valeurs [pos])
+        
+    def __contains__ (self, cle) : 
+        return cle in self.cles 
+    
     def __add__ (self, ) : 
         pass
     
     def __radd__ (self, ) : 
         pass
     
-    def __contains__ (self, ) : 
-        pass 
-    
-    def __getitem__ (self, ) :
-        pass 
-    
-    def __setitem__ (self, ) :
-        pass 
-    
     def __del__ (self, ) :
         pass 
-    
-    def __delitem__ (self, ) : 
-        pass
     
     def reverse (self, ) : 
         pass
@@ -74,8 +82,9 @@ class DictionnaireOrdonne :
 if "__main__" == __name__ : 
     dic = DictionnaireOrdonne ({"aziz" : 20, "ouss" : 19, "ahmed" : 17})
     print (dic)
-    di = DictionnaireOrdonne (azizzz = 20, ouss = 19, ahmed = 18)
-    print (len (di))
-    print (di.items ())
-    d = DictionnaireOrdonne()
-    print (d)
+    print (dic["aziz"])
+    dic ["aziz"] = 21
+    dic ["lonys"] = 12
+    print (dic)
+    del dic ["ouss"]
+    print (dic)
