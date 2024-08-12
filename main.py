@@ -1,10 +1,12 @@
 class DictionnaireOrdonne : 
     
-    def __init__ (self, *individual, **pret) : 
-        self.keys = []
+    def __init__ (self, individual = {}, **pret) : 
+        self.cle = []
         self.value = []
         
-    
+        if individual != {} :
+            pass                  
+
     def __repr__ (self) : 
         pass
     
