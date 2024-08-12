@@ -19,25 +19,26 @@ class DictionnaireOrdonne :
                 self.valeurs.append (val)       
 
     def __repr__ (self) : 
-        if len (self.cles) == 0 : 
+        if len (self) == 0 : 
             return '{}'
         else : 
             formatage = "{"
-            for index in range (len (self.cles)) : 
+            for index in range (len (self)) : 
                  formatage += f"'{self.cles[index]}' : {self.valeurs[index]}, "
             return formatage[:-2] + '}'
     
     def keys (self) : 
-        pass
+        return self.cles
     
     def values (self) : 
-        pass 
+        return self.valeurs 
     
     def items (self) : 
-        pass 
-    
+        items = [(self.cles[index], self.valeurs[index]) for index in range (len (self))] 
+        return items 
+     
     def __len__ (self) : 
-        pass
+        return len (self.cles)
     
     def __add__ (self, ) : 
         pass
@@ -74,6 +75,7 @@ if "__main__" == __name__ :
     dic = DictionnaireOrdonne ({"aziz" : 20, "ouss" : 19, "ahmed" : 17})
     print (dic)
     di = DictionnaireOrdonne (azizzz = 20, ouss = 19, ahmed = 18)
-    print (di)
+    print (len (di))
+    print (di.items ())
     d = DictionnaireOrdonne()
     print (d)
