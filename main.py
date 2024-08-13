@@ -60,19 +60,18 @@ class DictionnaireOrdonne :
     def __contains__ (self, cle) : 
         return cle in self.cles 
     
-    def __add__ (self, ) : 
-        pass
+    def __add__ (self, dic2) : 
+        for index in range (len (dic2)) : 
+            self.cles.append (dic2.cles [index])
+            self.valeurs.append (dic2.valeurs [index])    
+        return self
     
-    def __radd__ (self, ) : 
-        pass
+    def reverse (self) : 
+        self.cles = self.cles[::-1]
+        self.valeurs = self.valeurs[::-1]
+        return self
     
-    def __del__ (self, ) :
-        pass 
-    
-    def reverse (self, ) : 
-        pass
-    
-    def sort (self, ) :
+    def sort (self) :
         pass
     
     def __iter__ (self, ) :
@@ -88,3 +87,7 @@ if "__main__" == __name__ :
     print (dic)
     del dic ["ouss"]
     print (dic)
+    print (dic.reverse())
+    dd = DictionnaireOrdonne (mehdi=15, salima=18, zeineb=8)
+    print (dd)
+    print (dd + dic)
