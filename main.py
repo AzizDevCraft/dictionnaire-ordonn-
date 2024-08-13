@@ -1,22 +1,20 @@
 class DictionnaireOrdonne : 
     
     def __init__ (self, individual = {}, **pret) : 
-        self.cles = []
-        self.valeurs = []
+        self._cles = []
+        self._valeurs = []
         
         if individual != {} :
-            for key in individual.keys () : 
-                self.cles.append (key)
+            if type (individual) != dict : 
+                raise TypeError ("on accepte seulement les dictionnaires ! ")
             
-            for val in individual.values () : 
-                self.valeurs.append (val)
+            for key in individual : 
+                self [key] = individual [key]
             
         if pret != {} : 
-            for key in pret.keys () : 
-                self.cles.append (key)
-            
-            for val in pret.values () : 
-                self.valeurs.append (val)       
+            for key in pret : 
+                self [key] = pret [key]
+                     
 
     def __repr__ (self) : 
         if len (self) == 0 : 
@@ -24,51 +22,51 @@ class DictionnaireOrdonne :
         else : 
             formatage = "{"
             for index in range (len (self)) : 
-                 formatage += f"'{self.cles[index]}' : {self.valeurs[index]}, "
+                 formatage += f"'{self._cles[index]}' : {self._valeurs[index]}, "
             return formatage[:-2] + '}'
     
     def keys (self) : 
-        return self.cles
+        return self._cles
     
     def values (self) : 
-        return self.valeurs 
+        return self._valeurs 
     
     def items (self) : 
-        items = [(self.cles[index], self.valeurs[index]) for index in range (len (self))] 
+        items = [(self._cles[index], self._valeurs[index]) for index in range (len (self))] 
         return items 
      
     def __len__ (self) : 
-        return len (self.cles)
+        return len (self._cles)
     
     def __getitem__ (self, cle) :
-        pos = self.cles.index (cle)
-        return self.valeurs[pos]
+        pos = self._cles.index (cle)
+        return self._valeurs[pos]
     
     def __setitem__ (self, cle, new) :
         if cle in self : 
-            pos = self.cles.index (cle)
-            self.valeurs[pos] = new
+            pos = self._cles.index (cle)
+            self._valeurs[pos] = new
         else : 
-            self.cles.append (cle)
-            self.valeurs.append (new)
+            self._cles.append (cle)
+            self._valeurs.append (new)
     
     def __delitem__ (self, cle) : 
-        pos = self.cles.index (cle)
-        del (self.cles [pos])
-        del (self.valeurs [pos])
+        pos = self._cles.index (cle)
+        del (self._cles [pos])
+        del (self._valeurs [pos])
         
     def __contains__ (self, cle) : 
-        return cle in self.cles 
+        return cle in self._cles 
     
     def __add__ (self, dic2) : 
         for index in range (len (dic2)) : 
-            self.cles.insert (index, dic2.cles [index])
-            self.valeurs.insert (index, dic2.valeurs [index])    
+            self._cles.insert (index, dic2._cles [index])
+            self._valeurs.insert (index, dic2._valeurs [index])    
         return self
     
     def reverse (self) : 
-        self.cles = self.cles[::-1]
-        self.valeurs = self.valeurs[::-1]
+        self._cles = self._cles[::-1]
+        self._valeurs = self._valeurs[::-1]
         return self
     
     def sort (self) :
@@ -79,11 +77,11 @@ class DictionnaireOrdonne :
         for tuplee in new_items : 
             new_key.append (tuplee [0])
             new_value.append (tuplee [1])
-        self.cles = new_key
-        self.valeurs = new_value
+        self._cles = new_key
+        self._valeurs = new_value
         
-    def __iter__ (self, ) :
-        pass 
+    def __iter__ (self) :
+        return iter (self._cles) 
     
 
 if "__main__" == __name__ : 
@@ -91,11 +89,5 @@ if "__main__" == __name__ :
     dic ["aziz"] = 21
     dic ["lonys"] = 12
     print (dic)
-    del dic ["ouss"]
-    dd = DictionnaireOrdonne (mehdi=15, salima=18, zeineb=8)
-    print (dd)
-    dd + dic
-    print (dd)
-    print (dd.items ())
-    dd.sort ()
+    dd = DictionnaireOrdonne (adem=2, ysf=3)
     print (dd)
