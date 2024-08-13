@@ -39,8 +39,11 @@ class DictionnaireOrdonne :
         return len (self._cles)
     
     def __getitem__ (self, cle) :
-        pos = self._cles.index (cle)
-        return self._valeurs[pos]
+        if cle not in self : 
+            raise KeyError (f"'{cle}' n'existe pas !")
+        else :
+            pos = self._cles.index (cle)
+            return self._valeurs[pos]
     
     def __setitem__ (self, cle, new) :
         if cle in self : 
@@ -51,18 +54,28 @@ class DictionnaireOrdonne :
             self._valeurs.append (new)
     
     def __delitem__ (self, cle) : 
-        pos = self._cles.index (cle)
-        del (self._cles [pos])
-        del (self._valeurs [pos])
+        if cle not in self : 
+            raise KeyError (f"'{cle}' n'existe pas !")
+        else :
+            pos = self._cles.index (cle)
+            del (self._cles [pos])
+            del (self._valeurs [pos])
         
     def __contains__ (self, cle) : 
         return cle in self._cles 
     
-    def __add__ (self, dic2) : 
-        for index in range (len (dic2)) : 
-            self._cles.insert (index, dic2._cles [index])
-            self._valeurs.insert (index, dic2._valeurs [index])    
-        return self
+    def __add__ (self, nouveau) : 
+        if type (nouveau) not in (dict, DictionnaireOrdonne) : 
+            raise TypeError ("deux type different on ne peux pas les concatiner !")
+        else :
+            if type(nouveau) == dict : 
+                dic2 = DictionnaireOrdonne (nouveau)
+            else : dic2 = nouveau
+            
+            for index in range (len (dic2)) : 
+                self._cles.insert (index, dic2._cles [index])
+                self._valeurs.insert (index, dic2._valeurs [index])    
+            return self
     
     def reverse (self) : 
         self._cles = self._cles[::-1]
@@ -85,9 +98,27 @@ class DictionnaireOrdonne :
     
 
 if "__main__" == __name__ : 
-    dic = DictionnaireOrdonne ({"aziz" : 20, "ouss" : 19, "ahmed" : 17})
-    dic ["aziz"] = 21
-    dic ["lonys"] = 12
-    print (dic)
-    dd = DictionnaireOrdonne (adem=2, ysf=3)
-    print (dd)
+    fruits = DictionnaireOrdonne()
+    print (fruits)
+    fruits["pomme"] = 52
+    fruits["poire"] = 34
+    fruits["prune"] = 128
+    fruits["melon"] = 15
+    print (fruits)
+    fruits.sort()
+    print(fruits)
+    legumes = DictionnaireOrdonne(carotte = 26, haricot = 48)
+    print(legumes)
+    print (len(legumes))
+    legumes.reverse()
+    fruits = fruits + legumes
+    print (fruits)
+    del fruits['haricot']
+    print ('haricot' in fruits)
+    print (legumes['haricot'])
+    for cle in legumes:
+        print(cle)
+    print (legumes.keys())
+    print (legumes.values())
+    for nom, qtt in legumes.items():
+        print("{0} ({1})".format(nom, qtt))
