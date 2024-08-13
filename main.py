@@ -62,8 +62,8 @@ class DictionnaireOrdonne :
     
     def __add__ (self, dic2) : 
         for index in range (len (dic2)) : 
-            self.cles.append (dic2.cles [index])
-            self.valeurs.append (dic2.valeurs [index])    
+            self.cles.insert (index, dic2.cles [index])
+            self.valeurs.insert (index, dic2.valeurs [index])    
         return self
     
     def reverse (self) : 
@@ -72,22 +72,30 @@ class DictionnaireOrdonne :
         return self
     
     def sort (self) :
-        pass
-    
+        new_items = self.items()
+        new_items.sort(key=lambda x : x[0])
+        new_key = []
+        new_value = []
+        for tuplee in new_items : 
+            new_key.append (tuplee [0])
+            new_value.append (tuplee [1])
+        self.cles = new_key
+        self.valeurs = new_value
+        
     def __iter__ (self, ) :
         pass 
     
 
 if "__main__" == __name__ : 
     dic = DictionnaireOrdonne ({"aziz" : 20, "ouss" : 19, "ahmed" : 17})
-    print (dic)
-    print (dic["aziz"])
     dic ["aziz"] = 21
     dic ["lonys"] = 12
     print (dic)
     del dic ["ouss"]
-    print (dic)
-    print (dic.reverse())
     dd = DictionnaireOrdonne (mehdi=15, salima=18, zeineb=8)
     print (dd)
-    print (dd + dic)
+    dd + dic
+    print (dd)
+    print (dd.items ())
+    dd.sort ()
+    print (dd)
